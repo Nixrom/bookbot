@@ -20,17 +20,25 @@ def word_count(book):
 def main(book_text):
     print(book_text)
 
+def sort_on(dict):
+    return dict["num"]
+
 def letter_count(text):
     book = get_book_text(text)
-    full_letter_count = {}
-    temp_letter_count = {}
+    sorted_letter_count = []
+    temp_letter_count = []
+    output_letter_count = []
     lower_text = book.lower()
     for letter in check_characters:
         letter_count_check = lower_text.count(letter)
         if letter_count_check > 0:
-            temp_letter_count.update({letter : letter_count_check})
-    full_letter_count = dict(reversed(sorted(temp_letter_count.items(), key=lambda item: item[1])))
-    return full_letter_count
+            temp_letter_count.append({"char": letter, "num": letter_count_check})
+    sorted_letter_count = sorted(temp_letter_count, reverse=True, key=sort_on)
+    for dictionary in sorted_letter_count:
+        output_letter_count.append(f"{dictionary["char"]}" + ": " + f"{dictionary["num"]}")
+
+
+    return output_letter_count
     
 
 get_num_words = (f"Found {word_count("./books/frankenstein.txt")} total words")
